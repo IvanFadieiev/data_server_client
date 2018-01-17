@@ -1,27 +1,25 @@
 require 'socket'
-require 'byebug'
 
-# client
+# Client
 class Client
-  attr_accessor :socket, :message
+  attr_accessor :socket_address, :socket_port, :tries
 
-  def initialize(message)
-    @message = message
-    send_request
+  def initialize(attrs = {})
+    @socket_address = attrs[:socket_address]
+    @socket_port = attrs[:socket_port]
+    @tries = 3
   end
 
-  def send_request
-    tries = 3
-
-    socket = TCPSocket.open('localhost', 8080)
-    socket.puts message
-    socket.close
+  def send_message(message)
+    client.print(message)
+    client.close
   rescue => e
-    (tries -= 1) > 0 ? retry : (puts e)
+    (@tries -= 1) > 0 ? retry : e
+  end
+
+  private
+
+  def client
+    TCPSocket.open(socket_address, socket_port)
   end
 end
-
-
-
-# socket = TCPSocket.open('localhost', 8080)
-# Client.new(socket)

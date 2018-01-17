@@ -3,6 +3,7 @@ GEM
   specs:
     bindata (2.4.1)
     byebug (9.1.0)
+    eventmachine (1.2.5)
     foreman (0.84.0)
       thor (~> 0.19.1)
     puma (3.11.0)
@@ -15,9 +16,13 @@ PLATFORMS
 DEPENDENCIES
   bindata
   byebug
+  eventmachine
   foreman
   puma
   rack
+
+RUBY VERSION
+   ruby 2.4.1p111
 
 BUNDLED WITH
    1.16.0

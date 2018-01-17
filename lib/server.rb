@@ -1,45 +1,12 @@
-require 'socket'
-require 'bindata'
-require 'byebug'
+require 'eventmachine'
+require 'yaml'
+require_relative './data_processing.rb'
 
-# server
-class Server
-  attr_accessor :server_socket
+Dir[File.dirname(__FILE__) + '/servers/*.rb'].each { |file| load file }
 
-  def initialize(attrs = {})
-    socket_address = attrs[:socket_address]
-    socket_port = attrs[:socket_port]
+CONF = YAML.load_file('./config/config.yml')
 
-    @server_socket = TCPServer.open(socket_address, socket_port)
-    puts 'Started server.........'
-  end
-
-  class << self
-    def run(attrs = {})
-      socket = new(attrs)
-
-      loop do
-        client_connection = socket.server_socket.accept
-        Thread.start(client_connection) do |conn|
-          send_data(conn)
-        end
-      end.join
-    end
-
-    def send_data(connection)
-      loop do
-        message = connection.gets.chomp
-
-        # BEGIN: send response data to queue
-        File.open('./tmp/test.sock', 'a') do |f|
-          f.puts message
-          # f << message
-        end
-        # END: send response data to queue
-
-      end
-    end
-  end
+EventMachine.run do
+  EventMachine.start_server(CONF['SOCKET_ADDRESS']['INITIAL'], CONF['SOCKET_PORT']['INITIAL'], ReseiveInitialData)
+  EventMachine.start_server(CONF['SOCKET_ADDRESS']['DECRYPTED'], CONF['SOCKET_PORT']['DECRYPTED'], ReceiveDecryptedData)
 end
-
-Server.run(socket_address: 'localhost', socket_port: 8080)
