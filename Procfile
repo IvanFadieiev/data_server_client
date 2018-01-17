@@ -1,2 +1,2 @@
-server: ruby server.rb
-client: puma ./puma.ru
+server: ruby lib/server.rb
+client: puma ./rack_apps/socket_client_run.ru

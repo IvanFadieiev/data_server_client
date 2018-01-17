@@ -31,7 +31,7 @@ class Server
         message = connection.gets.chomp
 
         # BEGIN: send response data to queue
-        File.open('./test.sock', 'a') do |f|
+        File.open('./tmp/test.sock', 'a') do |f|
           f.puts message
           # f << message
         end
@@ -43,7 +43,3 @@ class Server
 end
 
 Server.run(socket_address: 'localhost', socket_port: 8080)
-
-# socket = TCPSocket.open('localhost', 8080)
-# socket.puts 'gfsdfgsdfgqweqwe'
-# socket.close
