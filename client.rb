@@ -2,54 +2,21 @@ require 'socket'
 
 # client
 class Client
-  attr_accessor :socket, :request_object, :response_object
+  attr_accessor :socket, :message
 
-  def initialize(socket)
+  def initialize(socket, message)
     @socket = socket
-    @request_object = send_request
-    @response_object = listen_response
-
-    @request_object.join # will send the request to server
-    @response_object.join # will receive response from server
+    @message = message
+    send_request
   end
 
   def send_request
-    puts 'Please enter your username to establish a connection...'
-    begin
-      Thread.new do
-        loop do
-          message = $stdin.gets.chomp
-          socket.puts message
-        end
-      end
-    rescue IOError => e
-      puts e.message
-      # e.backtrace
-      socket.close
-    end
-
-  end
-
-  def listen_response
-    begin
-      Thread.new do
-        loop do
-          response = socket.gets.chomp
-          puts "#{response}"
-          if response.eql?'quit'
-            socket.close
-          end
-        end
-      end
-    rescue IOError => e
-      puts e.message
-      # e.backtrace
-      socket.close
-    end
+    socket.puts message
+    socket.close
   end
 end
 
 
 
-socket = TCPSocket.open('localhost', 8080)
-Client.new(socket)
+# socket = TCPSocket.open('localhost', 8080)
+# Client.new(socket)

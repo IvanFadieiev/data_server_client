@@ -1,49 +1,48 @@
 require 'socket'
+require 'bindata'
 require 'byebug'
 
 # server
 class Server
-  attr_accessor :server_socket, :connections_details, :connected_clients
+  attr_accessor :server_socket
 
-  def initialize(socket_address, socket_port)
+  def initialize(attrs = {})
+    socket_address = attrs[:socket_address]
+    socket_port = attrs[:socket_port]
+
     @server_socket = TCPServer.open(socket_address, socket_port)
-    @connections_details = Hash.new
-    @connected_clients = Hash.new
-    @connections_details[:server] = server_socket
-    @connections_details[:clients] = @connected_clients
     puts 'Started server.........'
   end
 
-  def run
-    loop {
-      client_connection = server_socket.accept
-      Thread.start(client_connection) do |conn|
-        conn_name = conn.gets.chomp.to_sym
-        if (connections_details[:clients][conn_name] != nil)
-          conn.puts 'This username already exist'
-          conn.puts 'quit'
-          conn.kill self
+  class << self
+    def run(attrs = {})
+      socket = new(attrs)
+
+      loop do
+        client_connection = socket.server_socket.accept
+        Thread.start(client_connection) do |conn|
+          send_data(conn)
         end
+      end.join
+    end
 
-        puts "Connection established #{conn_name} => #{conn}"
-        connections_details[:clients][conn_name] = conn
-        conn.puts "Connection established successfully #{conn_name} => #{conn}, you may continue with chatting....."
+    def send_data(connection)
+      loop do
+        message = connection.gets.chomp
 
-        establish_chatting(conn_name, conn) # allow chatting
-      end
-    }.join
-  end
-
-  def establish_chatting(username, connection)
-    loop do
-      message = connection.gets.chomp
-      puts connections_details[:clients]
-      (connections_details[:clients]).keys.each do |client|
-        connections_details[:clients][client].puts "#{username} : #{message}"
+        # BEGIN: send response data to queue
+        File.open('./test.sock', 'a') do |f|
+          # f.puts message
+          f << message
+        end
+        # END: send response data to queue
       end
     end
   end
 end
 
+Server.run(socket_address: 'localhost', socket_port: 8080)
 
-Server.new('localhost', 8080).run
+# socket = TCPSocket.open('localhost', 8080)
+# socket.puts 'gfsdfgsdfgqweqwe'
+# socket.close
