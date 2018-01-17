@@ -2,12 +2,22 @@ GEM
   remote: https://rubygems.org/
   specs:
     bindata (2.4.1)
+    byebug (9.1.0)
+    foreman (0.84.0)
+      thor (~> 0.19.1)
+    puma (3.11.0)
+    rack (2.0.3)
+    thor (0.19.4)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   bindata
+  byebug
+  foreman
+  puma
+  rack
 
 BUNDLED WITH
    1.16.0

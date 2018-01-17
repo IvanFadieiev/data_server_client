@@ -13,7 +13,7 @@ class SocketClientRun
         Client.new(socket, message)
         [200, {}, ['data were sent']]
       else
-       raise 'Route don`t exist'
+        raise 'Route don`t exist'
     end
   rescue => e
     [500, {}, [e.to_s]]

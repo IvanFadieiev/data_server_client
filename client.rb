@@ -13,6 +13,8 @@ class Client
   def send_request
     socket.puts message
     socket.close
+  rescue => e
+    puts e
   end
 end
 

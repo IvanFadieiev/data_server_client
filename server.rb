@@ -32,10 +32,11 @@ class Server
 
         # BEGIN: send response data to queue
         File.open('./test.sock', 'a') do |f|
-          # f.puts message
-          f << message
+          f.puts message
+          # f << message
         end
         # END: send response data to queue
+
       end
     end
   end
