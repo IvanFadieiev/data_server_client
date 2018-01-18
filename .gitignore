@@ -4,4 +4,4 @@
 log/*.log
 
 tmp/pids/*.pid
-tmp/*.sock
+tmp/sockets/*.sock

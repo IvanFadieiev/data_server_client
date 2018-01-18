@@ -1,7 +1,6 @@
 require 'eventmachine'
 require 'yaml'
 require_relative './data_processing.rb'
-require_relative './support/create_pid'
 
 Dir[File.dirname(__FILE__) + '/servers/*.rb'].each { |file| load file }
 
