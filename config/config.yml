@@ -5,4 +5,3 @@ SOCKET_PORT:
 SOCKET_ADDRESS:
  INITIAL: 'localhost'
  DECRYPTED: 'localhost'
-

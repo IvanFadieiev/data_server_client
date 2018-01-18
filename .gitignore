@@ -1,5 +1,7 @@
 .idea/
 .byebug_history
-tmp/test.sock
+
 log/*.log
-tmp/
+
+tmp/pids/*.pid
+tmp/*.sock

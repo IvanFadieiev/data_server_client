@@ -1,0 +1,2 @@
+server: APP_ENV=production ruby ./lib/server.rb
+client: APP_ENV=production rackup ./app.ru
