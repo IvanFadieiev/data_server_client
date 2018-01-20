@@ -8,11 +8,17 @@
 
 ```
 stream {
-   server {
-       listen localhost:1111;
-       proxy_pass localhost:8079; # proxy host:port
-   }
+  server {
+    listen 1111;
+    proxy_pass stream_backend;
+  }
+
+  upstream stream_backend {
+    server localhost:8080 max_fails=3 fail_timeout=30s; # proxy host:port_1
+    server localhost:8082 max_fails=3 fail_timeout=30s; # proxy host:port_2
+  }
 }
+
 ```
 add to the very top ```/etc/nginx/nginx.conf```
 
