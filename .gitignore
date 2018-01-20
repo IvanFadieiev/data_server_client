@@ -5,3 +5,4 @@ log/*.log
 
 tmp/pids/*.pid
 tmp/sockets/*.sock
+tmp/*.txt
