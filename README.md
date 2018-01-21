@@ -25,6 +25,9 @@ stream {
 add to the very top ```/etc/nginx/nginx.conf```
 
 
+```http://localhost:15672```
+```sudo service rabbitmq-server restart```
+
 
 data.unpack("B*")[0][0*8...3*8].scan(/.{1,8}/).map { |part|  part.to_i(2).chr }.join
 time = DateTime.parse('1997-01-01').to_time.to_i

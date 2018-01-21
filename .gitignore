@@ -1,8 +1,10 @@
 .idea/
 .byebug_history
 
-log/*.log
+open_socket/log/*.log
 
-tmp/pids/*.pid
-tmp/sockets/*.sock
-tmp/*.txt
+open_socket/tmp/pids/*.pid
+open_socket/tmp/sockets/*.sock
+open_socket/tmp/*.txt
+
+shared/config/config.yml

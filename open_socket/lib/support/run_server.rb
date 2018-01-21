@@ -1,7 +1,7 @@
 require 'yaml'
-require_relative '../support/create_pid.rb'
+require_relative '../../../shared//support/create_pid.rb'
 
-CONF = YAML.load_file('./config/config.yml') # check this line
+CONF = YAML.load_file('./shared/config/config.yml') # check this line
 
 # RunServer
 class RunServer
@@ -29,7 +29,7 @@ class RunServer
   end
 
   def create_pid
-    CreatePid.for(file: file, pid: process.pid)
+    CreatePid.for(file: file, pid: process.pid, dir: 'open_socket')
   end
 
   def run_server

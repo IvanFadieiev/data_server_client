@@ -1,0 +1,15 @@
+SOCKET_PORT:
+ INITIAL: 8080
+ INITIAL_SECOND: 8082
+
+SOCKET_ADDRESS:
+ INITIAL: 'localhost'
+ INITIAL_SECOND: 'localhost'
+
+QUEUE:
+  INITIAL:
+    NAME: 'queue.data.initial'
+    HOST: 'localhost'
+    PORT: '5672'
+    USER: 'ivan'
+    PASS: 'unit237942'

@@ -1,2 +1,3 @@
-server:        APP_ENV=production ruby ./lib/servers/server.rb
-server_second: APP_ENV=production ruby ./lib/servers/server_second.rb
+server:          APP_ENV=production ruby ./open_socket/lib/servers/server.rb
+server_second:   APP_ENV=production ruby ./open_socket/lib/servers/server_second.rb
+read_init_queue: APP_ENV=production ruby ./initial_queue/lib/read_initial_queue.rb

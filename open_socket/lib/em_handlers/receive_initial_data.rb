@@ -1,4 +1,5 @@
 require 'byebug'
+require 'bunny'
 require_relative '../support/data_processing.rb'
 
 # ReseiveInitialData
