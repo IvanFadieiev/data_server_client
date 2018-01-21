@@ -16,6 +16,7 @@ class ReseiveInitialData < EventMachine::Connection
       EventMachine.stop_event_loop
     else
       DataProcessing.call(data)
+      close_connection
     end
   end
 

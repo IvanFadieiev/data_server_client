@@ -6,7 +6,7 @@
 
 ```foreman start -f Procfile.prod``` - to start daemonized servers for production env
 
-```netcat -N localhost 1111 < original_file``` or ```telnet localhost 8080 < original_file```
+```netcat localhost 1111 < original_file``` or ```telnet localhost 8080 < original_file```
 
 ```
 stream {
