@@ -1,2 +1,2 @@
-server:        ruby ./lib/server.rb
-server_second: ruby ./lib/server_second.rb
+server:        ruby ./lib/servers/server.rb
+server_second: ruby ./lib/servers/server_second.rb

@@ -1,4 +1,6 @@
 require 'byebug'
+require_relative '../support/data_processing.rb'
+
 # ReseiveInitialData
 class ReseiveInitialData < EventMachine::Connection
   def post_init
@@ -10,9 +12,6 @@ class ReseiveInitialData < EventMachine::Connection
   end
 
   def receive_data(data)
-    puts 'disconnected' unless ENV['APP_ENV'].eql?('production')
-    # send_data ">>>you sent: #{data}"
-    byebug
     if data.eql?('quit')
       EventMachine.stop_event_loop
     else
@@ -20,9 +19,9 @@ class ReseiveInitialData < EventMachine::Connection
     end
   end
 
-  # def unbind
-  # puts "-- someone disconnected from the echo server!"
-  # end
+  def unbind
+    puts 'disconnected' unless ENV['APP_ENV'].eql?('production')
+  end
 end
 
 

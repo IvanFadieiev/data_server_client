@@ -1,3 +1,4 @@
+# CreatePid
 class CreatePid
   class << self
     def for(pid: nil, file: nil)

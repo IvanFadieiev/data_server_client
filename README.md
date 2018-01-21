@@ -1,8 +1,10 @@
 # README
 
-```ruby ./lib/server.rb``` - run eventmachine servers
+```ruby ./lib/servers/server.rb``` - run eventmachine server
 
-```foreman start -f Procfile.prod``` - to start daemonized scripts
+```foreman start``` - run servers in dev env
+
+```foreman start -f Procfile.prod``` - to start daemonized servers for production env
 
 ```netcat -N localhost 1111 < original_file``` or ```telnet localhost 8080 < original_file```
 

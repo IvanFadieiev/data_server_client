@@ -1,1 +1,2 @@
-server: APP_ENV=production ruby ./lib/server.rb
+server:        APP_ENV=production ruby ./lib/servers/server.rb
+server_second: APP_ENV=production ruby ./lib/servers/server_second.rb
