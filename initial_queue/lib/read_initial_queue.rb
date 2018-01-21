@@ -17,13 +17,12 @@ EventMachine.run do
 
   channel = @conn.create_channel
   queue = channel.queue(CONF['QUEUE']['INITIAL']['NAME'],
-                        auto_delete: true,
+                        auto_delete: false,
                         durable: true)
 
   EM.tick_loop do
     queue.subscribe do |delivery_info, metadata, payload|
       # TODO: get data from initial queue and handle them
-      byebug
       puts "Received to #{metadata}"
       # TODO: get data from initial queue and handle them
     end
@@ -32,7 +31,10 @@ EventMachine.run do
   Signal.trap('INT') do
     EM.add_timer(0) do
       puts 'initial queue closed' unless ENV['APP_ENV'].eql?('production')
-      @conn.close if @conn.status.eql?(:open)
+      if @conn.status.eql?(:open)
+        channel.close
+        @conn.stop
+      end
     end
     EventMachine.stop
   end
@@ -40,7 +42,10 @@ EventMachine.run do
   Signal.trap('TERM') do
     EM.add_timer(0) do
       puts 'initial queue closed' unless ENV['APP_ENV'].eql?('production')
-      @conn.close if @conn.status.eql?(:open)
+      if @conn.status.eql?(:open)
+        channel.close
+        @conn.stop
+      end
     end
     EventMachine.stop
   end

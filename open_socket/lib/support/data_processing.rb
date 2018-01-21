@@ -14,11 +14,12 @@ class DataProcessing
       conn.start
       channel = conn.create_channel
       queue = channel.queue(CONF['QUEUE']['INITIAL']['NAME'],
-                            auto_delete: true,
+                            auto_delete: false,
                             durable: true)
       x = channel.default_exchange
       x.publish(message, routing_key: queue.name, persistent: false)
-      conn.close
+      channel.close
+      conn.stop
     end
   end
 end
